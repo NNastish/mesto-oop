@@ -29,4 +29,3 @@
 **Ссылка на проект**
 
 * [Ссылка на проект](https://nnastish.github.io/mesto/index.html)
-# mesto-oop

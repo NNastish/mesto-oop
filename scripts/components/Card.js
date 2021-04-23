@@ -1,12 +1,16 @@
+import { openPopup } from "../utils/utils.js";
+
 //класс создаёт карточку с текстом и ссылкой на изображение
 
-export default class Card {
+export class Card {
+    _popupOpenImage = document.querySelector(".popup_type_image"); //выбираем блок с попап с увеличением картинки
+    _popupPhoto = this._popupOpenImage.querySelector(".popup__photo"); //выбираем див в попапе, куда попапдет фото из карточки
+    _popupCaption = this._popupOpenImage.querySelector(".popup__caption"); //выбираем див, куда попадет название фото из карточки
 
-    constructor({ name, link }, cardSelector, handleCardClick) {
-        this._photo = link;
-        this._title = name;
+    constructor(data, cardSelector) {
+        this._photo = data.link;
+        this._title = data.name;
         this._cardSelector = cardSelector; // записали селектор в приватное поле
-        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
@@ -22,6 +26,13 @@ export default class Card {
         this._element.remove(); //удаляем карточки
     }
 
+    _cardPopup() {
+        this._popupPhoto.src = this._photo;
+        this._popupPhoto.alt = this._title;
+        this._popupCaption.textContent = this._title;
+        openPopup(this._popupOpenImage);
+    }
+
     // Функция обработки событий
     _setEventListeners() {
         this._element.querySelector(".card__like").addEventListener("click", () => {
@@ -32,7 +43,7 @@ export default class Card {
         });
 
         this._element.querySelector(".card__photo").addEventListener("click", () => {
-            this._handleCardClick();
+            this._cardPopup();
         });
     }
 
